@@ -49,6 +49,7 @@ public class LoginController
 
 	@RequestMapping(value = "/home", method = RequestMethod.POST)
 	public String home() {
+		System.out.println("home page requested");
 		return "home";
 	}
 }
