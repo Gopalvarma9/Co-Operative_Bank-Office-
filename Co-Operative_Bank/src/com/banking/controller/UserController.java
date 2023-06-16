@@ -34,6 +34,7 @@ public class UserController {
 	    
 	    @RequestMapping(value="/submit_form", method=RequestMethod.POST)
 	    public ResponseEntity<String> submitForm (BankUser bankUser,Model model) {
+	    	System.out.println(bankUser);
 	         bankUserService.saveBankUser(bankUser);
 	         return ResponseEntity.ok("Data saved successfully!");
 	    }

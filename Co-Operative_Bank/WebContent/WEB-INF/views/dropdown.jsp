@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <div class="form-group">
-    <label for="designationFilter">Filter by Designation:</label>
+    <B><label for="designationFilter">Filter by Designation:</label></B>
     <select class="form-control" id="designationFilter">
         <option value="All">All</option>
         <option value="Manager">Manager</option>

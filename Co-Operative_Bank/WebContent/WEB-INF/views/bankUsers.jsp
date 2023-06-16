@@ -47,6 +47,18 @@
             margin-left: 50%;
             transform: translateX(-50%);
         }
+
+        .success-message {
+            text-align: center;
+            margin-top: 10px;
+            color : green;
+        }
+
+        .invalid-feedback {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
@@ -58,6 +70,7 @@
                 <th>User ID</th>
                 <th>Title</th>
                 <th>Designation</th>
+                <th>Email</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -70,6 +83,7 @@
                 <td><%= bankUser.getBusr_id() %></td>
                 <td class="title"><%= bankUser.getBusr_title() %></td>
                 <td class="designation"><%= bankUser.getBusr_desg() %></td>
+                <td class="email"><%= bankUser.getBusr_email() %></td>
                 <td>
                     <button class="btn btn-primary" data-toggle="modal" data-target="#editModal-<%= bankUser.getBusr_id() %>">Edit</button>
                 </td>
@@ -97,19 +111,30 @@
                                     <input type="text" class="form-control"
                                            name="busr_title" id="busr_title-<%= bankUser.getBusr_id() %>" value="<%= bankUser.getBusr_title() %>">
                                 </div>
+                               <div class="form-group">
+								    <label for="busr_desg-<%= bankUser.getBusr_id() %>">Designation</label>
+								    <select class="form-control" name="busr_desg" id="busr_desg-<%= bankUser.getBusr_id() %>">
+								        <option value="" disabled selected>Select Designation</option>
+								        <option value="Manager" <%= bankUser.getBusr_desg().equals("Manager") ? "selected" : "" %>>Manager</option>
+								        <option value="Account Processing" <%= bankUser.getBusr_desg().equals("Account Processing") ? "selected" : "" %>>Account Processing</option>
+								        <option value="Clerk" <%= bankUser.getBusr_desg().equals("Clerk") ? "selected" : "" %>>Clerk</option>
+								        <option value="Bank Officer" <%= bankUser.getBusr_desg().equals("Bank Officer") ? "selected" : "" %>>Bank Officer</option>
+								    </select>
+								</div>
+
                                 <div class="form-group">
-                                    <label for="busr_desg-<%= bankUser.getBusr_id() %>">Designation</label>
-                                    <input type="text" class="form-control"
-                                           name="busr_desg" id="busr_desg-<%= bankUser.getBusr_id() %>" value="<%= bankUser.getBusr_desg() %>">
+                                    <label for="busr_email-<%= bankUser.getBusr_id() %>">Email</label>
+                                    <input type="email" class="form-control"
+                                           name="busr_email" id="busr_email-<%= bankUser.getBusr_id() %>" value="<%= bankUser.getBusr_email() %>" required>
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-primary" id="saveChangesBtn-<%= bankUser.getBusr_id() %>" onclick="savedata('<%= bankUser.getBusr_id() %>')">Save Changes</button>
+                            <button type="button" class="btn btn-primary" id="saveChangesBtn-<%= bankUser.getBusr_id() %>" onclick="saveData('<%= bankUser.getBusr_id() %>')">Save Changes</button>
                             <button type="button" class="btn btn-secondary" id="okBtn-<%= bankUser.getBusr_id() %>" style="display: none;">OK</button>
                             <br>
-                            <div id="successMessage-<%= bankUser.getBusr_id() %>" style="display: none;"></div>
+                            <div id="successMessage-<%= bankUser.getBusr_id() %>" class="success-message" style="display: none;"></div>
                         </div>
                     </div>
                 </div>
@@ -117,7 +142,7 @@
             <% }
             } else { %>
             <tr>
-                <td colspan="4">No users found</td>
+                <td colspan="5">No users found</td>
             </tr>
             <% } %>
         </tbody>
@@ -127,20 +152,22 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script>
-   
-    function savedata(busr_id) {
+    function saveData(busr_id) {
         var busr_title = $("#busr_title-" + busr_id).val();
         var busr_desg = $("#busr_desg-" + busr_id).val();
+        var busr_email = $("#busr_email-" + busr_id).val();
 
         var formData = {
             busr_id: busr_id,
             busr_title: busr_title,
             busr_desg: busr_desg,
+            busr_email: busr_email
         };
 
         var saveChangesBtn = $("#saveChangesBtn-" + busr_id);
         var cancelBtn = $("#editModal-" + busr_id + " .modal-footer .btn-secondary");
         var okBtn = $("#okBtn-" + busr_id);
+        var successMessage = $("#successMessage-" + busr_id);
 
         $.ajax({
             url: "saveUserData",
@@ -148,7 +175,7 @@
             data: formData,
             success: function(response) {
                 // Display success message
-                $('#successMessage-' + busr_id).text(response).show();
+                successMessage.text(response).show();
 
                 // Reset the form
                 document.getElementById("editForm-" + busr_id).reset();
