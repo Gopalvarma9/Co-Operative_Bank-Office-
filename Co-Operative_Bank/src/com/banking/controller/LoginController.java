@@ -16,7 +16,7 @@ public class LoginController
 		return "Login";
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login2() {
 		return "Login";
 	}
@@ -49,6 +49,7 @@ public class LoginController
 
 	@RequestMapping(value = "/home", method = RequestMethod.POST)
 	public String home() {
+		System.out.println("home page requested");
 		return "home";
 	}
 }

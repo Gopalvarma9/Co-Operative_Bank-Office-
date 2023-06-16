@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,14 +57,17 @@
     <div class="container">
         <div id="content" class="col-md-4 offset-md-4">
             <h1 class="text-center">Login</h1>
+            ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
             <form id="loginForm" class="mt-4"  action="home" method="post">
+             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            
                 <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" class="form-control" id="username" placeholder="Enter your username">
+                    <label for="username">Employee ID:</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter your Employee Id">
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="Enter your password">
+                    <label for="busr_id">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">Login</button>
                 <a href="SendOtp"  id="forgotPassword">Forgot Password?</a>
@@ -70,23 +75,5 @@
         </div>
     </div>
 
-    <script>
-        document.getElementById("loginForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-
-            // Get the values from the form fields
-            var username = document.getElementById("username").value;
-            var password = document.getElementById("password").value;
-
-            // Perform login logic here
-            if (username === "admin" && password === "password") {
-            	this.submit();
-                // Redirect to the dashboard or desired page
-
-            } else {
-                alert("Invalid credentials. Please try again.");
-            }
-        });
-    </script>
 </body>
 </html>

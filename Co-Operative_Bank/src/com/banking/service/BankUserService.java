@@ -1,10 +1,12 @@
 package com.banking.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,6 +41,8 @@ public class BankUserService {
             .setParameter("designation", bankUser.getBusr_desg())
             .getResultList();
     }
+	
+	
 	
 
 }
