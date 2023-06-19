@@ -68,7 +68,7 @@
                 <span id="welcome">Welcome!!!</span>
             </div>
             <div class="col-md-6 text-right">
-                <a id="logout" href="login">Logout</a>
+                <a id="logout" href="logout">Logout</a>
             </div>
         </div>
         <div class="row">

@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,6 +20,7 @@ public class UserController {
 		@RequestMapping(value="/addUser", method=RequestMethod.GET)
 		public String addUser()
 		{
+			
 			return "addUser";
 		}
 	
@@ -31,7 +31,7 @@ public class UserController {
 	        this.bankUserService = bankUserService;
 	    }
 	    
-	    @RequestMapping(value="/submit_form", method=RequestMethod.GET)
+	    @RequestMapping(value="/submit_form", method=RequestMethod.POST)
 	    public ResponseEntity<String> submitForm (BankUser bankUser,Model model) {
 	    	System.out.println(bankUser);
 	         bankUserService.saveBankUser(bankUser);
@@ -41,13 +41,17 @@ public class UserController {
 	    @RequestMapping(value = "/mainUser", method=RequestMethod.GET)
 	    public String getBankUsers(Model model) {
 	        List<BankUser> bankUsers = bankUserService.getAllBankUsers();
+	        for(BankUser bu : bankUsers)
+	        {
+	        	System.out.println(bu);
+	        }
 	        model.addAttribute("bankUsers", bankUsers);
 	        return "mainUser";
 	    }
 	    
-	    @RequestMapping(value = "/saveUserData" , method=RequestMethod.GET)
+	    @RequestMapping(value = "/saveUserData" , method=RequestMethod.POST)
 	    @ResponseBody
-	    public ResponseEntity<String> saveUserData(@RequestBody BankUser bankUser) {
+	    public ResponseEntity<String> saveUserData(@ModelAttribute("BankUser") BankUser bankUser) {
 	    	System.out.println(bankUser);
 	        bankUserService.saveUser(bankUser);
 	        return ResponseEntity.ok("User data saved successfully");

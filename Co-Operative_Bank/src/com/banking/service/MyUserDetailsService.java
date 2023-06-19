@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.banking.DAO.UserDAL;
 import com.banking.model.BankUserCredentials;
 
+@Service
 public class MyUserDetailsService implements UserDetailsService {
 	
 	@Autowired

@@ -27,44 +27,11 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.postgresql.Driver" />
 		<property name="url"
-			value="jdbc:postgresql://192.168.110.48:5432/plf_training" />
-		<property name="username" value="plf_training_admin" />
-		<property name="password" value="pff123" />
+			value="jdbc:postgresql://localhost:5432/postgres" />
+		<property name="username" value="postgres" />
+		<property name="password" value="Varma@491" />
 	</bean>
 	
-		<security:http auto-config="true">
-		    <security:intercept-url pattern="/css/**" access="permitAll" />
-		    <security:intercept-url pattern="/js/**" access="permitAll" />
-		    <security:intercept-url pattern="/login" access="permitAll" />
-		    <security:intercept-url pattern="/**" access="authenticated" />
-		    <security:form-login login-page="/login"
-		                         default-target-url="/"
-		                         authentication-failure-url="/login"
-		                         username-parameter="username"
-		                         password-parameter="password" />
-		    <security:logout logout-url="/logout"
-		                     logout-success-url="/login" />
-		    <security:session-management session-fixation-protection="none" />
-		    <security:csrf disabled="false" />   
-		    
-
-                 
-		</security:http>
-
-    <security:authentication-manager>
-        <security:authentication-provider user-service-ref="myUserDetailsService">
-            <security:password-encoder ref="passwordEncoder" />
-        </security:authentication-provider>
-    </security:authentication-manager>
-
-    <bean id="myUserDetailsService" class="com.banking.service.MyUserDetailsService" />
-    
-    <bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
-	    <property name="userDetailsService" ref="myUserDetailsService" />
-	    <property name="passwordEncoder" ref="passwordEncoder" /> <!-- Set the password encoder bean reference -->
-    </bean>
-    
-    <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"

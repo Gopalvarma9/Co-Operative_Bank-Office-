@@ -5,6 +5,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+	
     <title>Bank Users</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <style>
@@ -153,9 +156,12 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script>
     function saveData(busr_id) {
-        var busr_title = $("#busr_title").val();
-        var busr_desg = $("#busr_desg").val();
-        var busr_email = $("#busr_email").val();
+        var busr_title = $("#busr_title-"+busr_id).val();
+        var busr_desg = $("#busr_desg-"+busr_id).val();
+        var busr_email = $("#busr_email-"+busr_id).val();
+        
+        var csrfToken = $('meta[name="_csrf"]').attr('content');
+        var csrfHeader = $('meta[name="_csrf_header"]').attr('content');
 
         var formData = {
             busr_id: busr_id,
@@ -171,15 +177,17 @@
 
         $.ajax({
             url: "saveUserData",
-            type: "GET",
+            method : "POST",
             data: formData,
+            
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader(csrfHeader, csrfToken);
+              },
             success: function(response) {
                 // Display success message
                 successMessage.text(response).show();
 
-                // Reset the form
-                document.getElementById("editForm-" + busr_id).reset();
-
+                
                 // Hide the Save Changes and Cancel buttons, and show the OK button
                 saveChangesBtn.hide();
                 cancelBtn.hide();

@@ -65,7 +65,10 @@ public class BankUser {
 	}
 
 	@Override
-    public String toString() {
-        return "BankUser [busr_id=" + busr_id + ", busr_title=" + busr_title + ", busr_desg=" + busr_desg + "]";
-    }
+	public String toString() {
+		return "BankUser [busr_id=" + busr_id + ", busr_title=" + busr_title + ", busr_desg=" + busr_desg
+				+ ", busr_email=" + busr_email + "]";
+	}
+
+
 }
