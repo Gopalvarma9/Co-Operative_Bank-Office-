@@ -58,7 +58,7 @@
         <div id="content" class="col-md-4 offset-md-4">
             <h1 class="text-center">Login</h1>
             ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
-            <form id="loginForm" class="mt-4"  action="home" method="post">
+            <form id="loginForm" class="mt-4"  action="login" method="post">
              <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             
                 <div class="form-group">

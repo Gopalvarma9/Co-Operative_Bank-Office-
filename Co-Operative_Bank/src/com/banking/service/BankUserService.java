@@ -1,12 +1,12 @@
 package com.banking.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.springframework.security.core.userdetails.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,11 +18,21 @@ public class BankUserService {
     @PersistenceContext
     private EntityManager entityManager;
     
+	@Autowired
+	private PasswordEncoder passwordEncoder;
     
     @Transactional
     public boolean saveBankUser(BankUser bankUser) {
-        entityManager.persist(bankUser);
-        return true;
+    	
+    	String encodedPassword = passwordEncoder.encode(bankUser.getBusr_pwd());
+
+	    // Set the encoded password
+	    bankUser.setBusr_pwd(encodedPassword);
+
+	    // Save the user to the database
+	    entityManager.persist(bankUser);
+	    
+	    return true;
     }
 
     public List<BankUser> getAllBankUsers() {
@@ -42,6 +52,8 @@ public class BankUserService {
             .getResultList();
     }
 	
+
+
 	
 	
 

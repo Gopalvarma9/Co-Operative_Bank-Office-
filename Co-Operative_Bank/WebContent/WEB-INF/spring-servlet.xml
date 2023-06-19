@@ -31,23 +31,25 @@
 		<property name="username" value="plf_training_admin" />
 		<property name="password" value="pff123" />
 	</bean>
-		
-	<security:http auto-config="true">
-	    <security:intercept-url pattern="/css/**" access="permitAll" />
-	    <security:intercept-url pattern="/js/**" access="permitAll" />
-	    <security:intercept-url pattern="/login" access="permitAll" />
-	    <security:intercept-url pattern="/" access="permitAll" /> <!-- Allow access to the home page without authentication -->
-	    <security:intercept-url pattern="/**" access="authenticated" />
-	    <security:form-login login-page="/"
-	                         authentication-failure-url="/home"
-	                         username-parameter="username"
-	                         password-parameter="password" />
-	    <security:logout logout-url="/logout"
-	                     logout-success-url="/login" />
-	                     
-	    <security:csrf disabled="false" />                
-	</security:http>
+	
+		<security:http auto-config="true">
+		    <security:intercept-url pattern="/css/**" access="permitAll" />
+		    <security:intercept-url pattern="/js/**" access="permitAll" />
+		    <security:intercept-url pattern="/login" access="permitAll" />
+		    <security:intercept-url pattern="/**" access="authenticated" />
+		    <security:form-login login-page="/login"
+		                         default-target-url="/"
+		                         authentication-failure-url="/login"
+		                         username-parameter="username"
+		                         password-parameter="password" />
+		    <security:logout logout-url="/logout"
+		                     logout-success-url="/login" />
+		    <security:session-management session-fixation-protection="none" />
+		    <security:csrf disabled="false" />   
+		    
 
+                 
+		</security:http>
 
     <security:authentication-manager>
         <security:authentication-provider user-service-ref="myUserDetailsService">

@@ -19,6 +19,7 @@ public class MyUserDetailsService implements UserDetailsService {
 		
 		BankUserCredentials user = userDal.loadUserByUserName(username);
 		
+		
 		if(user==null)
 			throw new UsernameNotFoundException("User 404");
 		

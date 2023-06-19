@@ -153,9 +153,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script>
     function saveData(busr_id) {
-        var busr_title = $("#busr_title-" + busr_id).val();
-        var busr_desg = $("#busr_desg-" + busr_id).val();
-        var busr_email = $("#busr_email-" + busr_id).val();
+        var busr_title = $("#busr_title").val();
+        var busr_desg = $("#busr_desg").val();
+        var busr_email = $("#busr_email").val();
 
         var formData = {
             busr_id: busr_id,
@@ -171,7 +171,7 @@
 
         $.ajax({
             url: "saveUserData",
-            type: "POST",
+            type: "GET",
             data: formData,
             success: function(response) {
                 // Display success message

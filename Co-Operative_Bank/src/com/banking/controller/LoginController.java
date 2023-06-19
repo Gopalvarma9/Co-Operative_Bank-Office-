@@ -13,7 +13,7 @@ public class LoginController
 {
 	@RequestMapping(value = "/")
 	public String login() {
-		return "Login";
+		return "home";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -35,6 +35,7 @@ public class LoginController
 
 	@RequestMapping(value = "/SendOtp")
 	public String sendOtp() {
+		System.out.println("OTP SEND");
 		return "SendOtp";
 	}
 

@@ -84,7 +84,7 @@
 
 <div class="form-container">
   <h2>Bank User Form</h2>
-  <form id="bankUserForm" action="submit_form" method="POST">
+  <form id="bankUserForm" action="submit_form" method="GET">
 
     <label for="busr_title" class="required">Name:</label>
     <input type="text" id="busr_title" name="busr_title" placeholder="Enter your name" required>
@@ -99,9 +99,9 @@
     </select>
 
     <label for="busr_email" class="required">Email:</label>
-    <input type="email" id="busr_email" name="busr_email" placeholder="Enter your email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}\.[a-z]{2,}$" required>
+   <input type="email" id="busr_email" name="busr_email" placeholder="Enter your email" required>
 
-    <input type="submit" value="Submit"><br>
+    <input type="submit" value="Submit"> <br>
     <div id="successMessage"></div>
   </form>
 </div>

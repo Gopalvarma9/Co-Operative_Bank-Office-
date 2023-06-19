@@ -20,7 +20,7 @@
         // Send AJAX request to retrieve bank users based on designation
         $.ajax({
             url: "fetchData",
-            type: "post",
+            type: "get",
             data: { busr_desg: selectedDesignation },
             success: function(response) {
                 // Load the response into the table body

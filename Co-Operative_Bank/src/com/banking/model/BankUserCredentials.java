@@ -8,12 +8,16 @@ import javax.persistence.Id;
 @Entity
 public class BankUserCredentials 
 {
+
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
 	private String username;
+	
 	private String password;
+    
+	
 	public String getUsername() {
 		return username;
 	}

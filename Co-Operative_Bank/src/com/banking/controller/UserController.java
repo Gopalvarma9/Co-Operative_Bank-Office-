@@ -7,10 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.banking.model.BankUser;
@@ -19,7 +18,7 @@ import com.banking.service.BankUserService;
 @Controller
 public class UserController {
 	
-		@RequestMapping(value="/addUser", method=RequestMethod.POST)
+		@RequestMapping(value="/addUser", method=RequestMethod.GET)
 		public String addUser()
 		{
 			return "addUser";
@@ -32,7 +31,7 @@ public class UserController {
 	        this.bankUserService = bankUserService;
 	    }
 	    
-	    @RequestMapping(value="/submit_form", method=RequestMethod.POST)
+	    @RequestMapping(value="/submit_form", method=RequestMethod.GET)
 	    public ResponseEntity<String> submitForm (BankUser bankUser,Model model) {
 	    	System.out.println(bankUser);
 	         bankUserService.saveBankUser(bankUser);
@@ -46,15 +45,15 @@ public class UserController {
 	        return "mainUser";
 	    }
 	    
-	    @RequestMapping("/saveUserData")
+	    @RequestMapping(value = "/saveUserData" , method=RequestMethod.GET)
 	    @ResponseBody
-	    public String saveUserData(@ModelAttribute("BankUser") BankUser bankUser) {
+	    public ResponseEntity<String> saveUserData(@RequestBody BankUser bankUser) {
 	    	System.out.println(bankUser);
 	        bankUserService.saveUser(bankUser);
-	        return "User data saved successfully";
+	        return ResponseEntity.ok("User data saved successfully");
 	    }
 	    
-	    @RequestMapping(value = "/fetchData", method = RequestMethod.POST)
+	    @RequestMapping(value = "/fetchData", method = RequestMethod.GET)
 	    public String fetchData(@ModelAttribute("BankUser") BankUser bankUser, Model model) {
 	    	List<BankUser> bankUsers;
 	    	if(bankUser.getBusr_desg().equals("All"))

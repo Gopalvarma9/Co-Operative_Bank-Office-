@@ -155,7 +155,7 @@
         function addUser() {
             $.ajax({
                 url: 'addUser',
-                method: 'post',
+                method: 'get',
                 success: function (resultText) {
                     $('#content').html(resultText);
                 },
